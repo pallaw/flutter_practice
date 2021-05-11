@@ -1,113 +1,275 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/theme/MyAppTheme.dart';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(new ContactProfilePage());
+
+class ContactProfilePage extends StatefulWidget {
+  @override
+  _ContactProfilePageState createState() => _ContactProfilePageState();
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class _ContactProfilePageState extends State<ContactProfilePage> {
+  var appTheme = MyAppThemes.appThemeLight();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
+      home: Scaffold(
+        appBar: buildAppBarWidget(),
+        body: buildBodyWidget(),
+        floatingActionButton: buildFloatingActionButton(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  Widget buildAppBarWidget() {
+    return AppBar(
+      leading: Icon(
+        Icons.arrow_back,
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.star_border),
+          onPressed: () {
+            print("Contact is starred");
+          },
+        ),
+      ],
+    );
   }
+
+  Widget buildBodyWidget() {
+    return ListView(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 250,
+              child: Image.network(
+                "https://avatars.githubusercontent.com/u/12657374?s=400&u=a404bf13493f4ba50245c6cf7d6d9d6c55f0d666&v=4",
+                height: 250,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Pallaw Pathak",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              color: Colors.grey,
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 8, bottom: 8),
+              child: profileActionItems(),
+            ),
+            buildDivider(),
+            mobilePhoneListTile(),
+            otherPhoneListTile(),
+            buildDivider(),
+            emailListTile(),
+            buildDivider(),
+            addressListTile(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget profileActionItems() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        buildCallButton(),
+        buildTextButton(),
+        buildVideoCallButton(),
+        buildEmailButton(),
+        buildDirectionsButton(),
+        buildPayButton(),
+      ],
+    );
+  }
+
+  Widget buildCallButton() {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.call,
+          ),
+          onPressed: () {},
+        ),
+        Text("Call"),
+      ],
+    );
+  }
+
+  Widget buildTextButton() {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.message,
+          ),
+          onPressed: () {},
+        ),
+        Text("Text"),
+      ],
+    );
+  }
+
+  Widget buildVideoCallButton() {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.video_call,
+          ),
+          onPressed: () {},
+        ),
+        Text("Video"),
+      ],
+    );
+  }
+
+  Widget buildEmailButton() {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.email,
+          ),
+          onPressed: () {},
+        ),
+        Text("Email"),
+      ],
+    );
+  }
+
+  Widget buildDirectionsButton() {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.directions,
+          ),
+          onPressed: () {},
+        ),
+        Text("Directions"),
+      ],
+    );
+  }
+
+  Widget buildPayButton() {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.attach_money,
+          ),
+          onPressed: () {},
+        ),
+        Text("Pay"),
+      ],
+    );
+  }
+
+  Widget mobilePhoneListTile() {
+    return ListTile(
+      leading: Icon(
+        Icons.call,
+        color: Colors.grey,
+      ),
+      title: Text("330-803-3390"),
+      subtitle: Text("mobile"),
+      trailing: IconButton(
+        icon: Icon(
+          Icons.message,
+        ),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Widget otherPhoneListTile() {
+    return ListTile(
+      leading: Text(""),
+      title: Text("440-440-3390"),
+      subtitle: Text("other"),
+      trailing: IconButton(
+        icon: Icon(
+          Icons.message,
+        ),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Widget emailListTile() {
+    return ListTile(
+      leading: Icon(
+        Icons.email,
+        color: Colors.grey,
+      ),
+      title: Text("pallaw@pallaw.com"),
+      subtitle: Text("work"),
+    );
+  }
+
+  Widget addressListTile() {
+    return ListTile(
+      leading: Icon(
+        Icons.location_on,
+        color: Colors.grey,
+      ),
+      title: Text("234 Sunset St, Burlingame"),
+      subtitle: Text("home"),
+      trailing: IconButton(
+        icon: Icon(
+          Icons.directions,
+        ),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Widget buildFloatingActionButton() {
+    return FloatingActionButton(
+        child: IconButton(
+          icon: Icon(Icons.threesixty, ),
+        ),
+        onPressed: () {
+          setState(() {
+            appTheme = appTheme == MyAppThemes.appThemeLight()
+                ? MyAppThemes.appThemeDark()
+                : MyAppThemes.appThemeLight();
+          });
+        });
+  }
+}
+
+class buildDivider extends StatelessWidget {
+  const buildDivider({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return Divider(
+      color: Colors.grey,
     );
   }
 }
